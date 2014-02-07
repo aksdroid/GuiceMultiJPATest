@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = "1.0.0"
+defaultTasks 'build'
+
+
+jar {
+    manifest 
+	 {
+		 attributes("Built-By": System.getProperty("user.name"), 
+				    "Implementation-Vendor": "Tata Communications Inc.",
+				    "Implementation-Version": project.version, 
+				    "Built-Date": new Date().format('yy-MM-dd'))
+	 }
+	 exclude '**/META-INF/*'
+}
+
+repositories 
+{
+	maven {
+	 	url  'http://10.133.193.209/artifactory/repo'
+	 }
+}
+
+
+dependencies {
+
+	compile ('com.google.inject:guice:3.0',
+	         'com.google.inject.extensions:guice-persist:3.0',
+	         'com.google.guava:guava:14.0.1',
+	         'com.google.inject.extensions:guice-assistedinject:3.0')
+	
+	compile ('org.eclipse.persistence:org.eclipse.persistence.jpa:2.5.1',
+  	            'org.eclipse.persistence:javax.persistence:2.1.0');
+  	
+  	compile 'org.apache.derby:derby:10.10.1.1'
+
+}
